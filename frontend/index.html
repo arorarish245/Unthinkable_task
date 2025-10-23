@@ -1,0 +1,60 @@
+<!-- frontend/index.html -->
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>AI Support Chat</title>
+  <style>
+    body { font-family: Arial, Helvetica, sans-serif; background: #f8f8f8; padding: 20px; }
+    #chat { max-width: 700px; margin: auto; background: white; padding: 16px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+    .msg { margin: 8px 0; }
+    .user { text-align:right; }
+    .agent { text-align:left; font-weight: 500; }
+    #input { width:100%; padding: 8px; }
+  </style>
+</head>
+<body>
+  <div id="chat">
+    <h3>AI Customer Support (Demo)</h3>
+    <div id="log"></div>
+    <input id="input" placeholder="Type your message and press Enter" />
+    <p style="font-size:12px;color:#666;">Session id: <span id="sid"></span></p>
+  </div>
+
+<script>
+const sid = localStorage.getItem("cs_sid") || ("s_"+Math.random().toString(36).slice(2,9));
+localStorage.setItem("cs_sid", sid);
+document.getElementById("sid").innerText = sid;
+
+const log = document.getElementById("log");
+const input = document.getElementById("input");
+
+function append(role, text) {
+  const el = document.createElement("div");
+  el.className = "msg " + (role==="user" ? "user" : "agent");
+  el.innerHTML = `<div style="display:inline-block;max-width:80%">${text}</div>`;
+  log.appendChild(el);
+  log.scrollTop = log.scrollHeight;
+}
+
+input.addEventListener("keydown", async (e)=>{
+  if(e.key === "Enter" && input.value.trim()){
+    const msg = input.value.trim();
+    append("user", msg);
+    input.value = "";
+    const resp = await fetch("http://localhost:8000/chat", {
+      method: "POST",
+      headers: {"Content-Type":"application/json"},
+      body: JSON.stringify({session_id: sid, message: msg})
+    });
+    if(!resp.ok){
+      append("agent", "Error from backend");
+      return;
+    }
+    const data = await resp.json();
+    append("agent", data.reply + (data.escalate ? "<br/><em style='color:orangered'>[Escalation suggested]</em>": ""));
+  }
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+[
+  {
+    "id": "f1",
+    "question": "How do I reset my password?",
+    "answer": "To reset your password, go to Settings → Account → Reset Password. We'll email you a link."
+  },
+  {
+    "id": "f2",
+    "question": "What is the refund policy?",
+    "answer": "You can request a refund within 14 days of purchase. Contact support with your order ID."
+  },
+  {
+    "id": "f3",
+    "question": "How to contact support?",
+    "answer": "You can contact support at support@example.com or call +1-555-555-5555 between 9am-6pm UTC."
+  }
+]
