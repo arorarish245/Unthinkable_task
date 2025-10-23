@@ -15,16 +15,16 @@ An AI-powered customer support system that simulates real-world customer interac
 
 ## ⚙️ Tech Stack
 - **FastAPI** (Backend)  
-- **SQLite / In-memory storage** (Session tracking)  
-- **OpenAI / Gemini API** (LLM integration)  
+- **SQLite** (Session tracking)  
+- **Gemini API** (LLM integration)  
 
 ---
 
 ## 🧩 Setup & Run
 ```bash
 # 1. Clone the repo
-git clone https://github.com/<your-username>/ai-customer-support-bot.git
-cd ai-customer-support-bot/backend
+git clone https://github.com/arorarish245/Unthinkable_task.git
+cd Unthinkable_task/backend
 
 # 2. Install dependencies
 pip install -r requirements.txt
